@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+from pwnlib import constants
+from pwnlib.constants.constant import Constant
+
 from pwndbg.lib.functions import Argument
-from pwndbg.lib.functions import Flag
 from pwndbg.lib.functions import Function
 
 
@@ -28485,11 +28487,14 @@ _functions = {
                 derefcnt=0,
                 name="flags",
                 flags=(
-                    Flag(value=0x03, name="MAP_SHARED_VALIDATE"),
-                    Flag(value=0x01, name="MAP_SHARED"),
-                    Flag(value=0x02, name="MAP_PRIVATE"),
-                    Flag(value=0x20, name="MAP_ANONYMOUS"),
-                    Flag(value=0x10, name="MAP_FIXED"),
+                    Constant(
+                        "MAP_SHARED_VALIDATE",
+                        int(constants.MAP_SHARED) | int(constants.MAP_PRIVATE),
+                    ),
+                    constants.MAP_SHARED,
+                    constants.MAP_PRIVATE,
+                    constants.MAP_ANONYMOUS,
+                    constants.MAP_FIXED,
                 ),
             ),
             Argument(type="int", derefcnt=0, name="fd"),
